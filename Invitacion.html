@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Invitación</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  font-family: Arial, sans-serif;
+}
+
+/* CONTENEDOR */
+.contenedor {
+  position: relative;
+  width: 320px;
+  height: 340px;
+  perspective: 800px; /* 🔑 CLAVE PARA CHROME */
+}
+
+/* SOBRE */
+.sobre {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #fff;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* TAPA */
+.tapa {
+  position: absolute;
+  inset: 0;
+  background: #ff9fb2;
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  z-index: 3;
+}
+
+/* CARTA DENTRO (CENTRADA CORRECTAMENTE) */
+.carta {
+  position: absolute;
+  width: 0px;
+  left: 50%;
+  top: 25px;
+  transform: translate(-50%, 140%); /* 🔑 X + Y */
+  transition: transform 0.8s ease;
+  z-index: 1;
+}
+
+.carta img,
+.carta-fuera img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+/* ABIERTO */
+.sobre.abierto .tapa {
+  transform: rotateX(180deg);
+}
+
+.sobre.abierto .carta {
+  transform: translate(-50%, -30%);
+}
+
+/* CARTA FINAL (FUERA, COMPLETA, CENTRADA) */
+.carta-fuera {
+  position: absolute;
+  width: 300px;
+  left: 50%;
+  top: -20px;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: none;
+  pointer-events: none;
+}
+
+/* TEXTO */
+.texto {
+  text-align: center;
+  margin-top: 14px;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+  <div class="sobre" id="sobre">
+    <div class="tapa"></div>
+
+    <div class="carta" id="cartaDentro">
+    <img src="https://github.com/Juanceto/Invitacion/blob/1d845b0bd5597f371c3e335e4aa0cc79c9f3f029/Invitacion.jpg" alt="Invitación">
+    </div>
+  </div>
+
+  <div class="carta-fuera" id="cartaFuera">
+    <img src="https://github.com/Juanceto/Invitacion/blob/1d845b0bd5597f371c3e335e4aa0cc79c9f3f029/Invitacion.jpg" alt="Invitación">
+  </div>
+
+  <div class="texto">Tocá el sobre ✉️</div>
+</div>
+
+<script>
+const sobre = document.getElementById("sobre");
+const cartaDentro = document.getElementById("cartaDentro");
+const cartaFuera = document.getElementById("cartaFuera");
+
+sobre.addEventListener("click", () => {
+  sobre.classList.add("abierto");
+  sobre.style.pointerEvents = "none";
+
+  setTimeout(() => {
+    cartaFuera.style.display = "block";
+    cartaDentro.style.display = "none";
+  }, 800);
+});
+</script>
+
+</body>
+</html>
